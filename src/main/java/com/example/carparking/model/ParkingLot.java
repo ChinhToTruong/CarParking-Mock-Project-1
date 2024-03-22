@@ -1,5 +1,6 @@
 package com.example.carparking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,7 @@ public class ParkingLot {
 
     private String parkingStatus;
 
-    @OneToMany(mappedBy = "parkingLot")
+    @JsonIgnore
+    @OneToMany(mappedBy = "parkingLot", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Car> cars;
 }

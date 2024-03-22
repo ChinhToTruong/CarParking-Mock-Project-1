@@ -2,7 +2,7 @@ package com.example.carparking.controller;
 
 import com.example.carparking.dto.EmployeeDto;
 import com.example.carparking.dto.request.EmployeeRegisterRequest;
-import com.example.carparking.dto.response.EmployeeResponseDto;
+import com.example.carparking.dto.ResponseDto;
 import com.example.carparking.service.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class EmployeeController {
     @PostMapping("/add")
     public ResponseEntity addEmployee(@RequestBody @Valid EmployeeRegisterRequest request) throws Exception {
         var employee = employeeService.addEmployee(request);
-        return EmployeeResponseDto.build()
+        return ResponseDto.build()
                 .withHttpStatus(HttpStatus.OK)
                 .withCode(200)
                 .withData(employee)
@@ -42,7 +42,7 @@ public class EmployeeController {
     public ResponseEntity deleteEmployee(@RequestBody EmployeeDto employeeDto) throws Exception {
         var id = employeeDto.getId();
         employeeService.deleteEmployee(id);
-        return EmployeeResponseDto.build()
+        return ResponseDto.build()
                 .withSuccess(true)
                 .withCode(200)
                 .withMessage("Delete successfully employee id: " + id)
@@ -52,7 +52,7 @@ public class EmployeeController {
 
     @PutMapping("/update")
     public ResponseEntity updateEmployee(@RequestBody EmployeeDto employeeDto){
-        return EmployeeResponseDto.build()
+        return ResponseDto.build()
                 .withSuccess(true)
                 .withCode(200)
                 .withData(employeeService.updateEmployee(employeeDto))
@@ -62,7 +62,7 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public ResponseEntity findEmployeeById(@PathVariable(name = "id") Long id){
-        return EmployeeResponseDto.build()
+        return ResponseDto.build()
                 .withSuccess(true)
                 .withData(employeeService.findEmployeeById(id))
                 .toEntity();

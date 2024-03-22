@@ -1,32 +1,32 @@
 package com.example.carparking.controller;
 
+import com.example.carparking.dto.CarDto;
 import com.example.carparking.dto.ResponseDto;
-import com.example.carparking.model.ParkingLot;
-import com.example.carparking.service.ParkingLotService;
+import com.example.carparking.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/parking-lot")
-public class ParkingLotController {
+@RequestMapping("/car")
+public class CarController {
     @Autowired
-    private ParkingLotService service;
+    private CarService carService;
+
     @PostMapping("/add")
-    public ResponseEntity add(@RequestBody ParkingLot parkingLot){
+    public ResponseEntity add(@RequestBody CarDto carDto){
         return ResponseDto.build()
-                .withData(service.addParkingLot(parkingLot))
-                .withSuccess(true)
-                .withCode(200)
+                .withData(carService.addCar(carDto))
                 .toEntity();
     }
 
+
     @GetMapping("/all")
-    public ResponseEntity findAll(
+    public ResponseEntity getAll(
             @RequestParam("pageNo") int pageNo,
             @RequestParam("record") int record,
             @RequestParam(value = "sortBy") String property
     ){
-        return ResponseEntity.ok(service.finAll(pageNo, record, property));
+        return ResponseEntity.ok(carService.findAll(pageNo, record, property));
     }
 }

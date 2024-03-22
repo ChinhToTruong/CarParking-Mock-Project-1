@@ -1,8 +1,8 @@
 package com.example.carparking.exception;
 
-import com.example.carparking.dto.response.EmployeeResponseDto;
+import com.example.carparking.dto.ResponseDto;
 import com.example.carparking.exception.custom.EmployeeAlreadyExistedException;
-import com.example.carparking.exception.custom.UserNotFoundException;
+import com.example.carparking.exception.custom.EmployeeNotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +19,19 @@ import java.util.Map;
 public class ApiExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<EmployeeResponseDto> handleGlobalException(Exception ex) {
+    public ResponseEntity<ResponseDto> handleGlobalException(Exception ex) {
         log.error("handleGlobalException: ", ex);
-        return EmployeeResponseDto.build()
+        return ResponseDto.build()
                 .withSuccess(false)
                 .withHttpStatus(HttpStatus.BAD_REQUEST)
                 .withMessage(ex.getMessage())
                 .toEntity();
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<EmployeeResponseDto> handleUserNotFoundException(UserNotFoundException ex) {
+    @ExceptionHandler(EmployeeNotFoundException.class)
+    public ResponseEntity<ResponseDto> handleUserNotFoundException(EmployeeNotFoundException ex) {
         log.error("handleUserNotFoundException: ", ex);
-        return EmployeeResponseDto.build()
+        return ResponseDto.build()
                 .withSuccess(false)
                 .withHttpStatus(HttpStatus.BAD_REQUEST)
                 .withMessage(ex.getMessage())
@@ -39,9 +39,9 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(EmployeeAlreadyExistedException.class)
-    public ResponseEntity<EmployeeResponseDto> handleEmployeeAlreadyExistedException(EmployeeAlreadyExistedException ex) {
+    public ResponseEntity<ResponseDto> handleEmployeeAlreadyExistedException(EmployeeAlreadyExistedException ex) {
         log.error("handleEmployeeAlreadyExistedException: ", ex);
-        return EmployeeResponseDto.build()
+        return ResponseDto.build()
                 .withSuccess(false)
                 .withHttpStatus(HttpStatus.BAD_REQUEST)
                 .withMessage(ex.getMessage())
@@ -50,7 +50,7 @@ public class ApiExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<EmployeeResponseDto> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
+    public ResponseEntity<ResponseDto> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
         Map<String, Object> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach(
                 (error) -> {
@@ -59,7 +59,7 @@ public class ApiExceptionHandler {
                     errors.put(title, message);
                 }
         );
-        return EmployeeResponseDto.build()
+        return ResponseDto.build()
                 .withHttpStatus(HttpStatus.BAD_REQUEST)
                 .withErrors(errors)
                 .toEntity();

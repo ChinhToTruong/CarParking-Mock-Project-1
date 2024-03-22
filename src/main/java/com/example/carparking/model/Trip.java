@@ -1,5 +1,6 @@
 package com.example.carparking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,10 +32,12 @@ public class Trip {
 
     private int maximumOnlineTicketNumber;
 
-    @OneToMany(mappedBy = "trip")
+    @JsonIgnore
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Ticket> tickets;
 
-    @OneToMany(mappedBy = "trip")
+    @JsonIgnore
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<BookingOffice> bookingOffices;
 
 }

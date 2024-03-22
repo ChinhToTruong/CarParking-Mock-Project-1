@@ -1,4 +1,4 @@
-package com.example.carparking.dto.response;
+package com.example.carparking.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -15,7 +15,7 @@ import java.util.Map;
 @Setter
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class EmployeeResponseDto<T> {
+public class ResponseDto<T> {
     @JsonIgnore
     private HttpStatus httpStatus = HttpStatus.OK;
     @JsonIgnore
@@ -32,8 +32,8 @@ public class EmployeeResponseDto<T> {
     private Map<String, Object> errors;
 
 
-    public static <T> EmployeeResponseDto<T> build(){
-        return new EmployeeResponseDto<>();
+    public static <T> ResponseDto<T> build(){
+        return new ResponseDto<>();
     }
 
     @PostConstruct
@@ -43,43 +43,43 @@ public class EmployeeResponseDto<T> {
         errors = new HashMap<String, Object>();
     }
 
-    public EmployeeResponseDto<T> withHttpStatus(HttpStatus status){
+    public ResponseDto<T> withHttpStatus(HttpStatus status){
         this.httpStatus = status;
         this.code = status.value();
         return this;
     }
 
-    public EmployeeResponseDto<T> withCode(int code){
+    public ResponseDto<T> withCode(int code){
         this.code = code;
         return this;
     }
 
-    public EmployeeResponseDto<T> withData(T data){
+    public ResponseDto<T> withData(T data){
         this.data = data;
         return this;
     }
 
-    public EmployeeResponseDto<T> withSuccess(boolean success){
+    public ResponseDto<T> withSuccess(boolean success){
         this.success = success;
         return this;
     }
 
-    public EmployeeResponseDto<T> withHttpHeaders(HttpHeaders headers){
+    public ResponseDto<T> withHttpHeaders(HttpHeaders headers){
         this.headers = headers;
         return this;
     }
 
-    public EmployeeResponseDto<T> withMessage(String message){
+    public ResponseDto<T> withMessage(String message){
         this.message = message;
         return this;
     }
 
-    public EmployeeResponseDto<T> withErrors(Map<String, Object> errors){
+    public ResponseDto<T> withErrors(Map<String, Object> errors){
         this.errors = errors;
         return this;
     }
 
-    public ResponseEntity<EmployeeResponseDto> toEntity(){
+    public ResponseEntity<ResponseDto> toEntity(){
         return new ResponseEntity<>(this, headers, httpStatus);
     }
 

@@ -3,24 +3,18 @@ package com.example.carparking.service.impl;
 import com.example.carparking.dto.EmployeeDto;
 import com.example.carparking.dto.mapper.EmployeeMapper;
 import com.example.carparking.dto.request.EmployeeRegisterRequest;
-import com.example.carparking.dto.response.EmployeeResponseDto;
 import com.example.carparking.exception.custom.EmployeeAlreadyExistedException;
-import com.example.carparking.exception.custom.UserNotFoundException;
+import com.example.carparking.exception.custom.EmployeeNotFoundException;
 import com.example.carparking.model.Employee;
 import com.example.carparking.repository.EmployeeRepository;
 import com.example.carparking.service.EmployeeService;
 import com.example.carparking.validator.ObjectValidator;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -68,7 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDto updateEmployee(EmployeeDto employeeDto) {
         var employee = employeeRepository.findEmployeeById(employeeDto.getId());
         if (employee == null) {
-            throw new UserNotFoundException("User not found " + employeeDto.getId());
+            throw new EmployeeNotFoundException("User not found " + employeeDto.getId());
         }
         var newEmployee = new Employee(
                 employeeDto.getId(),
@@ -91,7 +85,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteEmployee(Long id){
         var employee = employeeRepository.findEmployeeById(id);
         if (employee == null) {
-            throw new UserNotFoundException("User not found " + id);
+            throw new EmployeeNotFoundException("User not found " + id);
         }
         employeeRepository.delete(employee);
     }
@@ -100,7 +94,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDto findEmployeeById(Long id) {
         var employee = employeeRepository.findEmployeeById(id);
         if (employee == null) {
-            throw new UserNotFoundException("User not found " + id);
+            throw new EmployeeNotFoundException("User not found " + id);
         }
 
         return EmployeeMapper.getInstance().toDTO(employee);

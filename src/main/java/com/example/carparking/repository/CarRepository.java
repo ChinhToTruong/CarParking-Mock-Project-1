@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Repository
 public interface CarRepository extends JpaRepository<Car, Long> {
     @Query(value = "select c from Car c where c.id = ?1")
-    Collection<Car> findCarById(Long id);
+    Optional<Car> findCarById(Long id);
 }
