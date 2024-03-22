@@ -13,6 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class EmployeeDto {
     private Long id;
+
     private String account;
     private DepartmentType department;
     private String address;

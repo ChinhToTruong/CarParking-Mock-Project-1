@@ -14,15 +14,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CarDto {
-
+    @NotNull(message = "can not be null")
     private String licensePlate;
-
+    @NotNull(message = "can not be null")
     private String carColor;
-
+    @NotNull(message = "can not be null")
     private String carType;
-
+    @NotNull(message = "can not be null")
     private String company;
-
+    @NotNull(message = "can not be null")
     private Long parkingLot;
 
 }
