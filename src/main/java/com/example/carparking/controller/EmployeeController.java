@@ -4,6 +4,7 @@ import com.example.carparking.dto.EmployeeDto;
 import com.example.carparking.dto.request.EmployeeRegisterRequest;
 import com.example.carparking.dto.response.EmployeeResponseDto;
 import com.example.carparking.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class EmployeeController {
 
 
     @PostMapping("/add")
-    public ResponseEntity addEmployee(@RequestBody EmployeeRegisterRequest request) {
+    public ResponseEntity addEmployee(@RequestBody @Valid EmployeeRegisterRequest request) throws Exception {
         var employee = employeeService.addEmployee(request);
         return EmployeeResponseDto.build()
                 .withHttpStatus(HttpStatus.OK)
@@ -33,14 +34,37 @@ public class EmployeeController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Collection<EmployeeDto>> allEmployees(){
-        return ResponseEntity.ok(employeeService.getAllEmployees());
+    public ResponseEntity<Collection<EmployeeDto>> allEmployees(@RequestParam(name = "pageNo") int pageNo, @RequestParam(name = "record") int record, @RequestParam(name = "sortBy") String property){
+        return ResponseEntity.ok(employeeService.getAllEmployees(pageNo, record, property));
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteEmployee(@RequestBody EmployeeDto employeeDto) throws Exception {
+    public ResponseEntity deleteEmployee(@RequestBody EmployeeDto employeeDto) throws Exception {
         var id = employeeDto.getId();
         employeeService.deleteEmployee(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return EmployeeResponseDto.build()
+                .withSuccess(true)
+                .withCode(200)
+                .withMessage("Delete successfully employee id: " + id)
+                .toEntity();
+
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity updateEmployee(@RequestBody EmployeeDto employeeDto){
+        return EmployeeResponseDto.build()
+                .withSuccess(true)
+                .withCode(200)
+                .withData(employeeService.updateEmployee(employeeDto))
+                .withMessage("Update successfully!")
+                .toEntity();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity findEmployeeById(@PathVariable(name = "id") Long id){
+        return EmployeeResponseDto.build()
+                .withSuccess(true)
+                .withData(employeeService.findEmployeeById(id))
+                .toEntity();
     }
 }
