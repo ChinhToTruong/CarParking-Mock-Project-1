@@ -5,6 +5,7 @@ import com.example.carparking.dto.ResponseDto;
 import com.example.carparking.dto.request.BookingOfficeRequest;
 import com.example.carparking.service.BookingService;
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
+import jakarta.validation.Valid;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class BookingController {
 
     @SneakyThrows
     @PostMapping("/add")
-    public ResponseEntity<ResponseDto> addBookingOffice(@RequestBody BookingOfficeRequest request){
+    public ResponseEntity<ResponseDto> addBookingOffice(@Valid @RequestBody BookingOfficeRequest request){
         return ResponseDto.build()
                 .withData(bookingService.addBookingOffice(request))
                 .withSuccess(true)

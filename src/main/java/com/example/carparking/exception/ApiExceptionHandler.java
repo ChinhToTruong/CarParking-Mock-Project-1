@@ -3,6 +3,7 @@ package com.example.carparking.exception;
 import com.example.carparking.dto.ResponseDto;
 import com.example.carparking.exception.custom.EmployeeAlreadyExistedException;
 import com.example.carparking.exception.custom.EmployeeNotFoundException;
+import jakarta.validation.ConstraintDeclarationException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,6 +64,16 @@ public class ApiExceptionHandler {
         return ResponseDto.build()
                 .withHttpStatus(HttpStatus.BAD_REQUEST)
                 .withErrors(errors)
+                .withSuccess(false)
+                .toEntity();
+    }
+
+    @ExceptionHandler(ConstraintDeclarationException.class)
+    public ResponseEntity<ResponseDto> handleConstraintDeclarationException(ConstraintDeclarationException ex){
+        return ResponseDto.build()
+                .withHttpStatus(HttpStatus.BAD_REQUEST)
+                .withMessage(ex.getMessage())
+                .withSuccess(false)
                 .toEntity();
     }
 

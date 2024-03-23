@@ -23,7 +23,7 @@ public class Ticket {
 
     private String licensePlate;
 
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trip_id")
     private Trip trip;

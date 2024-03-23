@@ -39,7 +39,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deleteEmployee(@RequestBody EmployeeDto employeeDto) throws Exception {
+    public ResponseEntity deleteEmployee(@Valid @RequestBody EmployeeDto employeeDto) throws Exception {
         var id = employeeDto.getId();
         employeeService.deleteEmployee(id);
         return ResponseDto.build()

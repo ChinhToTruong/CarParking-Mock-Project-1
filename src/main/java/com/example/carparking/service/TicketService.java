@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface TicketService {
-    Collection<Ticket> findAll(int pageNo, int record, String property);
+    Collection<TicketDto> findAll(int pageNo, int record, String property);
 
     Optional addTicket(TicketDto ticketDto);
 

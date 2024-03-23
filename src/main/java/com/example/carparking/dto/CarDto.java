@@ -1,5 +1,6 @@
 package com.example.carparking.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,15 +15,21 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CarDto {
-    @NotNull(message = "can not be null")
+    @NotNull(message = "account not null")
+    @NotBlank(message = "account not blank")
     private String licensePlate;
-    @NotNull(message = "can not be null")
+    @NotNull(message = "account not null")
+    @NotBlank(message = "account not blank")
     private String carColor;
-    @NotNull(message = "can not be null")
+    @NotNull(message = "account not null")
+    @NotBlank(message = "account not blank")
     private String carType;
-    @NotNull(message = "can not be null")
+    @NotNull(message = "account not null")
+    @NotBlank(message = "account not blank")
     private String company;
-    @NotNull(message = "can not be null")
+    @NotNull(message = "account not null")
+    @NotBlank(message = "account not blank")
     private Long parkingLot;
+    private List<Long> tickets;
 
 }

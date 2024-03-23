@@ -1,5 +1,6 @@
 package com.example.carparking.service;
 
+import com.example.carparking.dto.TripDto;
 import com.example.carparking.model.Trip;
 
 import java.util.Collection;
@@ -9,5 +10,5 @@ public interface TripService {
 
     Optional addTrip(Trip trip);
 
-    Collection<Trip> finAll(int pageNo, int record, String property);
+    Collection<TripDto> finAll(int pageNo, int record, String property);
 }

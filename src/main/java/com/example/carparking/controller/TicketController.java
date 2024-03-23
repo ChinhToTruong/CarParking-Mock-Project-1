@@ -3,6 +3,7 @@ package com.example.carparking.controller;
 import com.example.carparking.dto.ResponseDto;
 import com.example.carparking.dto.TicketDto;
 import com.example.carparking.service.TicketService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class TicketController {
     private TicketService service;
 
     @PostMapping("/add")
-    public ResponseEntity add(@RequestBody TicketDto dto){
+    public ResponseEntity add(@Valid @RequestBody TicketDto dto){
         return ResponseDto.build()
                 .withData(service.addTicket(dto))
                 .toEntity();

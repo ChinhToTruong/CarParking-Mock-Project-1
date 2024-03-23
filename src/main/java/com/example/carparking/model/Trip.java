@@ -19,19 +19,19 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "can not be null")
+
     private int bookedTicketNumber;
-    @NotNull(message = "can not be null")
+
     private String carType;
-    @NotNull(message = "can not be null")
+
     private Date departureDate;
-    @NotNull(message = "can not be null")
+
     private Date departureTime;
-    @NotNull(message = "can not be null")
+
     private String destination;
-    @NotNull(message = "can not be null")
+
     private String driver;
-    @NotNull(message = "can not be null")
+
     private int maximumOnlineTicketNumber;
 
     @JsonIgnore

@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface CarService {
     Optional addCar(CarDto carDto);
-    Collection<Car> findAll(int pageNo, int record, String property);
+    Collection<CarDto> findAll(int pageNo, int record, String property);
 
 }

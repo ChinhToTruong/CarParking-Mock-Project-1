@@ -2,6 +2,7 @@ package com.example.carparking.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -18,15 +19,20 @@ public class ParkingLot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "can not be null")
+    @NotNull(message = "account not null")
+    @NotBlank(message = "account not blank")
     private int parkingArea;
-    @NotNull(message = "can not be null")
+    @NotNull(message = "account not null")
+    @NotBlank(message = "account not blank")
     private String parkingName;
-    @NotNull(message = "can not be null")
+    @NotNull(message = "account not null")
+    @NotBlank(message = "account not blank")
     private String parkingPlace;
-    @NotNull(message = "can not be null")
+    @NotNull(message = "account not null")
+    @NotBlank(message = "account not blank")
     private int parkingPrice;
-    @NotNull(message = "can not be null")
+    @NotNull(message = "account not null")
+    @NotBlank(message = "account not blank")
     private String parkingStatus;
 
     @JsonIgnore
